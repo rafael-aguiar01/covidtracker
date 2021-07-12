@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+
+import 'jquery/dist/jquery.min.js'
+import 'datatables.net-dt/js/dataTables.dataTables'
+import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import $ from 'jquery'
+
 export default function Main() {
 
     const [coviddata, setcoviddata]=useState([])
@@ -10,6 +16,12 @@ export default function Main() {
           console.log(res.data)
           setcoviddata(res.data.Countries)
       }).catch(err=>{console.log(err)})
+
+      $(document).ready(() =>{
+    
+        $('#mytable').DataTable()
+
+      })
 
     }, [coviddata])
 
@@ -28,8 +40,8 @@ export default function Main() {
 
             <div className = "row justify-content-center">
                 <div className="col-md-8">
-                    <table className='table table-dark'>
-                        <thred>
+                    <table id='mytable' className='table table-dark'>
+                        <thead>
                             <tr>
                                 <th>País</th>
                                 <th>Confirmado</th>
@@ -37,7 +49,7 @@ export default function Main() {
                                 <th>Recuperado</th>
                                 <th>Mortos</th>
                             </tr>
-                        </thred>
+                        </thead>
 
                         <tbody>
                             {tabledata}
